@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-02-05T07:39:17.661990",
+  "message": "TCP SYN Flood Attack",
+  "priority": 3,
+  "protocol": "TCP",
+  "src": "0.0.0.0:49204",
+  "dst": "10.0.0.186:15600",
+  "node_name": "aerios-2-jms6qnflylil-node-1",
+  "mac": "fa:16:3e:32:c6:ee"
+}

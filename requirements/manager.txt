@@ -1,0 +1,7 @@
+requests
+fastapi
+uvicorn
+schedule
+numpy
+prettytable
+pythonping 

@@ -1,0 +1,49 @@
+{
+    "keys": [
+        "reliability",
+        "reputation",
+        "health_events",
+        "security",
+        "notifications",
+        "trust",
+        "trust_last_update"
+    ],
+    "data": {
+        "MyDomain:fa163e5e25ef": {
+            "reliability": 0.5806583024755544,
+            "reputation": 0.4,
+            "health_events": 2,
+            "security": 1.0,
+            "notifications": 0,
+            "trust": 0.7451645756188886,
+            "trust_last_update": "2025-03-06T11:30:54.148792"
+        },
+        "MyDomain:fa163e32c6ee": {
+            "reliability": 0.3760832482418987,
+            "reputation": 0.4,
+            "health_events": 0,
+            "security": 0.4,
+            "notifications": 0,
+            "trust": 0.3940208120604747,
+            "trust_last_update": "2025-03-06T11:33:52.442173"
+        },
+        "MyDomain:fa163ec323f9": {
+            "reliability": 0.630180432143725,
+            "reputation": 1.0,
+            "health_events": 0,
+            "security": 1.0,
+            "notifications": 0,
+            "trust": 0.9075451080359312,
+            "trust_last_update": "2025-03-06T11:30:54.252753"
+        },
+        "MyDomain:fa163ed55867": {
+            "reliability": 0.5758388728049063,
+            "reputation": 0.4,
+            "health_events": 0,
+            "security": 1.0,
+            "notifications": 0,
+            "trust": 0.7439597182012265,
+            "trust_last_update": "2025-03-06T11:30:54.291646"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+apiVersion: v2
+name: trustmanager
+description: |
+  Helm chart for deploying the Trust Manager system, which integrates Orion Broker, self-awareness, 
+  self-security, and self-healing mechanisms to calculate trust scores for Infrastructure Elements (IEs) 
+  within a domain.
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+keywords:
+  - aeriOS
+  - trustworthiness
+  - trust-score
+  - meta-os

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trustmanager
+  labels:
+    app: trustmanager
+spec:
+  selector:
+    matchLabels:
+      app: trustmanager
+  template:
+    metadata:
+      labels:
+        app: trustmanager
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      imagePullSecrets: []
+      containers:
+        - name: trustmanager
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /manager/configs/manager.ini
+              subPath: manager.ini
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: trustmanager-config

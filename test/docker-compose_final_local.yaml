@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  mongo-db:
+    image: mongo:4.4
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    networks:
+      - trustnet
+
+  orion-ld:
+    image: fiware/orion-ld:latest
+    container_name: orion-ld
+    depends_on:
+      - mongo-db
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo-db -logLevel DEBUG -forwarding
+    networks:
+      - trustnet
+
+  trustmanager:
+    #image: eclipseaerios/trust-manager:latest
+    build: .
+    container_name: trustmanager
+    depends_on:
+      - orion-ld
+      - init-orion
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./configs/manager.ini:/manager/configs/manager.ini:ro
+    networks:
+      - trustnet
+
+  init-orion:
+    image: curlimages/curl:latest
+    container_name: init-orion
+    depends_on:
+      - orion-ld
+    networks:
+      - trustnet
+    command: >
+      sh -c '
+        echo "⏳ Waiting for Orion to be ready...";
+        sleep 10;
+
+        echo "🚀 Registering test InfrastructureElements...";
+
+        curl -X POST http://orion-ld:1026/ngsi-ld/v1/entityOperations/upsert/ \
+          -H "Content-Type: application/json" \
+          -H "Link: <https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"" \
+          -d '\''[
+            {
+              "id": "urn:ngsi-ld:InfrastructureElement:MyDomain:fa163e5e25ef",
+              "type": "InfrastructureElement",
+              "cpuCores": 4,
+              "currentCpuUsage": 15,
+              "ramCapacity": 15615,
+              "availableRam": 5462,
+              "currentRamUsage": 10153,
+              "internalIpAddress": "10.0.0.186",
+              "macAddress": "fa:16:3e:5e:25:ef"
+            },
+            {
+              "id": "urn:ngsi-ld:InfrastructureElement:MyDomain:fa163e32c6ee",
+              "type": "InfrastructureElement",
+              "cpuCores": 4,
+              "currentCpuUsage": 3,
+              "ramCapacity": 15615,
+              "availableRam": 13307,
+              "currentRamUsage": 2308,
+              "internalIpAddress": "10.0.0.238",
+              "macAddress": "fa:16:3e:32:c6:ee"
+            },
+            {
+              "id": "urn:ngsi-ld:InfrastructureElement:MyDomain:fa163ed55867",
+              "type": "InfrastructureElement",
+              "cpuCores": 2,
+              "currentCpuUsage": 100,
+              "ramCapacity": 7753,
+              "availableRam": 948,
+              "currentRamUsage": 6805,
+              "internalIpAddress": "10.0.0.16",
+              "macAddress": "fa:16:3e:d5:58:67"
+            }
+          ]'\''
+
+        echo "✅ Orion initialization complete!";
+      '
+
+networks:
+  trustnet:

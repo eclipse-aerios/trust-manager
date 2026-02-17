@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp": "2024-09-03T15:28:24.467296",
+    "message": "Possible Nmap SYN Scan",
+    "priority": 5,
+    "protocol": "TCP",
+    "src": "10.0.0.104:36805",
+    "dst": "10.0.0.186:30515",
+    "node_name": "MyDomain:fa163e5e25ef"
+  },
+  {
+    "timestamp": "2024-09-03T15:28:44.666280",
+    "message": "Possible Nmap SYN Scan",
+    "priority": 4,
+    "protocol": "TCP",
+    "src": "10.0.0.133:12071",
+    "dst": "10.0.0.186:31229",
+    "node_name": "MyDomain:fa163e5e25ef"
+  },
+  {
+    "timestamp": "2024-09-03T15:28:47.904179",
+    "message": "Possible Nmap SYN Scan",
+    "priority": 4,
+    "protocol": "TCP",
+    "src": "10.0.0.104:29415",
+    "dst": "10.0.0.186:31229",
+    "node_name": "MyDomain:fa163e5e25ef"
+  }
+]

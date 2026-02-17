@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trustmanager-config
+data:
+  manager.ini: |
+{{ .Values.configManagerIni | indent 4 }}
