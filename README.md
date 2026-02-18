@@ -1,13 +1,13 @@
 # aeriOS Trust Manager
 
-The Trust Manager monitores and evaluates the trustworthiness of an Infrastructure Element of the aeriOS Cloud-Edge-IoT continuum.
+The Trust Manager monitores and evaluates the trustworthiness of the Infrastructure Elements (IEs) that compose a Domain of the aeriOS Cloud-Edge-IoT continuum.
 
 ## Overview
 This repository contains the source code for the Trust Manager which interacts with the NGSI-LD Context Broker, Self-awareness, Self-security and Self-healing in order to **calculate a trust score** for all the Infrastucture Elements that compose an aeriOS Domain.
 
 The project's architecture is defined by the following components:
 
-1. [Self-awareness](./): This is the self-capability that allows to get real-time information about the status of the IE. It gathers information about the IE and submits it to the associated Data Fabric/Context broker. This module can Obtain parameters such as CPU data, RAM data etc.
+1. [Self-awareness](./): This is the self-* capability that allows to get real-time information about the status of the IE. It gathers information about the IE and submits it to the NGSI-LD Context broker of its Domain. This module can obtain parameters such as CPU data, RAM data etc.
 2. [Trust Manager](./src/trustmanager/manager.py): A component that calculates the Trustworthness of IE based on TOPSIS method.
 3. [NGSI-LD Context Broker](./docker-compose.yaml#L4): A component that allows managing the lifecycle of device entities including updates, queries, registrations and subscriptions. Included in the Docker Compose as a Docker image.
 
@@ -69,7 +69,7 @@ The communications steps to calculate **Reputation score** are the following:
 
 ### Installation ⚡
 
-Execute the following command to install the requirements:
+It is recommended to first set up and activate a virtual environment. Then execute the following command to install the requirements:
 
 ```console
 pip install -r requirements/manager.txt
@@ -90,7 +90,7 @@ Configure the manager settings in the [config](./configs/manager.ini) file.
 Execute the Docker compose command to create the Orion containers:
 
 ```console
-docker compose -f test/docker-compose_final_local.yaml up -f
+docker compose up -d
 ```
 
 Execute the following script to initialize Orion-ld CB with the data model of aeriOS
@@ -99,9 +99,9 @@ Execute the following script to initialize Orion-ld CB with the data model of ae
 python test/entities_creation_script.py
 ```
 
-## APIs
+## REST API endpoints
 
-> **GET** http://localhost:3000/weights
+> **GET** /weights
 
 Request the weights configured in the Trust Manager:
 
@@ -134,12 +134,12 @@ Request the weights configured in the Trust Manager:
 }
 ```
 
-> **POST** http://localhost:3000/calculate
+> **POST** /calculate
 
-Request from the Trust Manager to perform a score evaluation of the altervatives provided. The request body can contain two parameters:
+Request from the Trust Manager to perform a score evaluation of the altervatives provided. The JSON request body can contain two parameters:
 
-1. `alternatives` (int[][]): The array containing the values of each alternative
-2. `weights` (list) _[Optional]_: A list containing the weights for the trust score calculation
+1. `alternatives` (int[][]): A 2D array containing the values of each alternative.
+2. `weights` (list) _[Optional]_: A list containing the weights for the trust score calculation.
 
 ### Example
 

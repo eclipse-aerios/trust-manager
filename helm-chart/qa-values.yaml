@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: eclipseaerios/trust-manager
-  tag: 1.0.0
+  tag: ""
   pullPolicy: IfNotPresent
 
 service:
